@@ -2,16 +2,16 @@ import { LitElement, css, html } from 'lit'
 import { Child1Element } from './child-1-element'
 import { CharacterGetterElement } from './character-getter-element'
 import { CharacterCardElement } from './character-card-element'
-  /**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
- */
+/**
+* An example element.
+*
+* @slot - This element has a slot
+* @csspart button - The button
+*/
 export class MyElement extends LitElement {
   static get properties() {
     return {
-     
+
       /**
        * The number of times the button has been clicked.
        */
@@ -20,7 +20,7 @@ export class MyElement extends LitElement {
        *An array of characters 
        */
       character: { type: Array },
-    
+
     }
   }
 
@@ -28,26 +28,29 @@ export class MyElement extends LitElement {
 
   constructor() {
     super()
-       this.count = 0
-       this.characters = []
+    this.count = 0
+    this.characters = []
   }
-myEvent1Handler(){
-  this.count++
+  myEvent1Handler() {
+    this.count++
+  }
 
-}
 
+  firstUpdated() {
+    const getter = this.shadowRoot.querySelector("#getter")
 
-firstUpdated () {
- const getter = this.shadowRoot.querySelector("#getter")
+    for (let i = 0; i < 100; i++)
+      getter.getNewCharacter()
 
-for (let i = 0; i < 100; i++) 
-  getter.getNewCharacter()
-}
+    setInterval(() => {
+      getter.getNewCharacter()
+    }, 3000)
+  }
 
-newCharacterEventHandler(e) {
-this.characters = [...this.characters, e.detail]
-}
-
+  newCharacterEventHandler(e) {
+    // this.characters = [...this.characters, e.detail]
+    this.characters = [e.detail]
+  }
 
   render() {
     return html`
@@ -64,8 +67,8 @@ this.characters = [...this.characters, e.detail]
         
 
     `
-    }  
-  
+  }
+
 
   static get styles() {
     return css`

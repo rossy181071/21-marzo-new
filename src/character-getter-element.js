@@ -9,20 +9,18 @@ import { LitElement, css, html } from 'lit'
 export class CharacterGetterElement extends LitElement {
   constructor() {
     super()
-       
-  } 
+
+  }
   newRamdomInt() {
     return Math.ceil(Math.random() * 100)
   }
- 
 
-    getNewCharacter(){
-        fetch(`https://rickandmortyapi.com/api/character/${this.newRamdomInt()}`)
+  getNewCharacter() {
+    fetch(`https://rickandmortyapi.com/api/character/${this.newRamdomInt()}`)
       .then(response => response.json())
-      .then(characterData => this.dispatchEvent(new CustomEvent('new-character-event', { detail: characterData })))     
-      
-    }
-  
+      .then(characterData => this.dispatchEvent(new CustomEvent('new-character-event', { detail: characterData })))
+
+  }
 
   static get styles() {
     return css`
